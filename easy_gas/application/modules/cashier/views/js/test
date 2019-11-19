@@ -1,0 +1,108 @@
+<script>
+$(document).ready(function(){
+
+  $('#mydata').DataTable();
+
+  show_product();
+
+
+//function show all product
+function show_product()
+{
+$.ajax({
+  type  : 'ajax',
+  url   : '<?php echo site_url('admin/product_data')?>',
+  async : false,
+  dataType : 'json',
+  success : function(data){
+      var html = '';
+      var i;
+      for(i=0; i<data.length; i++){
+          html += '<tr class="text-center">'+
+                '<td>'+data[i].account_num+'</td>'+
+                  '<td>'+data[i].company_name+'</td>'+
+                  '<td>'+data[i].address+'</td>'+
+                      '<td>'+data[i].telephone_num+'</td>'+
+                      '<td>'+data[i].contact_person+'</td>'+
+                      '<td>'+data[i].contact_number+'</td>'+
+                      '<td>'+data[i].po_validity+'</td>'+
+      '<td>'+data[i].status+'</td>'+
+                      '<td>'+data[i].contact_person_after+'</td>'+
+                      '<td>'+data[i].contact_num_after+'</td>'+
+                      '<td><a href="javascript:void(0);" class=" item_signature" data-account_num="'+data[i].account_num+'" data-file_name="'+data[i].file_name+'"><i class="fas fa-portrait"> Signatory</i></a></td>'+
+                  '<td class="text-center">'+
+                          '<a href="javascript:void(0);" class=" item_edit" data-account_num="'+data[i].account_num+'" data-company_name="'+data[i].company_name+'" data-address="'+data[i].address+'" data-telephone_num="'+data[i].telephone_num+'" data-contact_person="'+data[i].contact_person+'" data-contact_number="'+data[i].contact_number+'" data-po_validity="'+data[i].po_validity+'" data-status="'+data[i].status+'" data-contact_person_after="'+data[i].contact_person_after+'" data-contact_num_after="'+data[i].contact_num_after+'" data-file_name="'+data[i].file_name+'"><i class="fas fa-user-edit"> Edit</i></a>' +
+                          ' '+'<a href="javascript:void(0);" class=" item_delete" data-account_num="'+data[i].account_num+'"><i class="fas fa-trash"> Delete</i></a>'
+                      '</td>'+
+                  '</tr>';
+      }
+      $('#show_data').html(html);
+  }
+
+});
+}
+
+
+// //delete function here
+// $('#test').click(function () {
+//       var countries = [];
+//       $.each($("#check2:checked"), function(){            
+//           countries.push($(this).val());
+//       });
+//       if (countries == ""){
+//         Swal.fire("Delete Error", "Please select a message you want to delete" , "error")
+//         }else{
+//           Swal.fire("Successfuly Delete",  `Your Id is:${countries} ` , "error")
+//         }
+// });
+// // end here delete
+
+// // refresh here
+// $('#refresh').click(function () {
+//   alert();
+// });
+// //end here
+
+  $(function () {
+    //Enable check and uncheck all functionality
+    $('.checkbox-toggle').click(function () {
+      var clicks = $(this).data('clicks')
+      if (clicks) {
+        //Uncheck all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+      } else {
+        //Check all checkboxes
+        $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+      }
+      $(this).data('clicks', !clicks)
+    })
+
+    //Handle starring for glyphicon and font awesome
+    $('.mailbox-star').click(function (e) {
+      e.preventDefault()
+      //detect type
+      var $this = $(this).find('a > i')
+      var glyph = $this.hasClass('glyphicon')
+      var fa    = $this.hasClass('fa')
+
+      //Switch states
+      if (glyph) {
+        $this.toggleClass('glyphicon-star')
+        $this.toggleClass('glyphicon-star-empty')
+      }
+
+      if (fa) {
+        $this.toggleClass('fa-star')
+        $this.toggleClass('fa-star-o')
+      }
+    })
+  })
+
+
+
+
+ }); //end of function ready 
+
+</script>
